@@ -7,6 +7,7 @@ import random
 import sys
 import re
 from typing import Dict, List, Any, Callable, Tuple
+import argparse
 
 import black
 
@@ -451,10 +452,16 @@ class ComfyUItoPython:
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Generate a scripted ComfyUI workflow')
+    parser.add_argument('-i', '--input_json', type=str, required=True)
+    parser.add_argument('-o', '--output_py', type=str, default='workflow_api.py')
+    args=parser.parse_args()
+
+
     # Update class parameters here
-    input_file = 'workflow_api.json'
-    output_file = 'workflow_api.py'
-    queue_size = 10
+    input_file = args.input_json
+    output_file = args.output_py
+    queue_size = 1
 
     # Convert ComfyUI workflow to Python
     ComfyUItoPython(input_file=input_file, output_file=output_file, queue_size=queue_size)
